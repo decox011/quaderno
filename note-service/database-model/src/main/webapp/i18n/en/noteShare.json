@@ -1,0 +1,27 @@
+{
+  "noteServiceApp": {
+    "noteShare": {
+      "home": {
+        "title": "Note Shares",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Note Share",
+        "createOrEditLabel": "Create or edit a Note Share",
+        "notFound": "No Note Shares found"
+      },
+      "created": "A new Note Share is created with identifier {{ param }}",
+      "updated": "A Note Share is updated with identifier {{ param }}",
+      "deleted": "A Note Share is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Note Share {{ id }}?"
+      },
+      "detail": {
+        "title": "Note Share"
+      },
+      "id": "ID",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "sharedWith": "Shared With",
+      "note": "Note"
+    }
+  }
+}

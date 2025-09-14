@@ -1,0 +1,4 @@
+org.springframework.test.context.ContextCustomizerFactory = \
+    it.quaderno.note.config.SqlTestContainersSpringContextCustomizerFactory,it.\
+    quaderno.note.config.TestContainersSpringContextCustomizerFactory,it.\
+    quaderno.note.config.RedisTestContainersSpringContextCustomizerFactory
