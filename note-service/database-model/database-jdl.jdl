@@ -17,8 +17,6 @@ application {
   entities *
 }
 
-entity User 
-
 entity Note {
   title String required minlength(1) maxlength(140)
   content TextBlob required
@@ -40,11 +38,11 @@ entity NoteShare {
 
 relationship OneToMany {
   Note to NoteShare
-  User to Note{owner} // funziona solo se hai scelto autenticazione JHipster con User
 }
 
 relationship ManyToOne {
-  NoteShare{sharedWith} to User
+  NoteShare{sharedWith} to User with builtInEntity
+  Note{owner} to User with builtInEntity
 }
 
 relationship ManyToMany {
