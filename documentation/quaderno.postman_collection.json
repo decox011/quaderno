@@ -1,0 +1,616 @@
+{
+	"info": {
+		"_postman_id": "a843b4cb-3f62-46ca-9ddb-abc529941bbd",
+		"name": "Quaderno",
+		"description": "Collection per popolare l'app Quaderno con utenti e note di esempio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Users",
+			"item": [
+				{
+					"name": "Register pippo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"login\": \"pippo\", \"password\": \"pippo123\", \"email\": \"pippo@example.com\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register pluto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"login\": \"pluto\", \"password\": \"pluto123\", \"email\": \"pluto@example.com\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register paperino",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"login\": \"paperino\", \"password\": \"paperino123\", \"email\": \"paperino@example.com\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login Users",
+			"item": [
+				{
+					"name": "Login pippo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('pippoToken', pm.response.json().id_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"pippo\", \"password\": \"pippo123\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login pluto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('plutoToken', pm.response.json().id_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"pluto\", \"password\": \"pluto123\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login paperino",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('paperinoToken', pm.response.json().id_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"paperino\", \"password\": \"paperino123\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Create Note 1 (pippo)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaXBwbyIsImV4cCI6MTc1Nzk1NTg3MCwiYXV0aCI6IlJPTEVfVVNFUiIsImlhdCI6MTc1Nzg2OTQ3MH0.K3WwL8ed4SAz9ma8gBdzKOO20Dox3EWowj-6V4ZX-SQYeO4IcMR64HF30GhxiM0nF13134BRrVKl3-iPR0mhxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{pippoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 1 di pippo\", \"content\": \"Contenuto della nota 1 scritta da pippo\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 2 (pluto)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{plutoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 2 di pluto\", \"content\": \"Contenuto della nota 2 scritta da pluto\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 3 (paperino)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{paperinoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 3 di paperino\", \"content\": \"Contenuto della nota 3 scritta da paperino\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 4 (pippo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{pippoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 4 di pippo\", \"content\": \"Contenuto della nota 4 scritta da pippo\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 5 (pluto)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{plutoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 5 di pluto\", \"content\": \"Contenuto della nota 5 scritta da pluto\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 6 (paperino)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{paperinoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 6 di paperino\", \"content\": \"Contenuto della nota 6 scritta da paperino\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 7 (pippo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{pippoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 7 di pippo\", \"content\": \"Contenuto della nota 7 scritta da pippo\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 8 (pluto)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{plutoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 8 di pluto\", \"content\": \"Contenuto della nota 8 scritta da pluto\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 9 (paperino)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{paperinoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 9 di paperino\", \"content\": \"Contenuto della nota 9 scritta da paperino\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note 10 (pippo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{pippoToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Nota 10 di pippo\", \"content\": \"Contenuto della nota 10 scritta da pippo\", \"createdAt\": \"2025-09-14T12:00:00Z\", \"updatedAt\": \"2025-09-14T12:00:00Z\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaXBwbyIsImV4cCI6MTc1Nzk1NTg3MCwiYXV0aCI6IlJPTEVfVVNFUiIsImlhdCI6MTc1Nzg2OTQ3MH0.K3WwL8ed4SAz9ma8gBdzKOO20Dox3EWowj-6V4ZX-SQYeO4IcMR64HF30GhxiM0nF13134BRrVKl3-iPR0mhxg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "pippoToken",
+			"value": ""
+		},
+		{
+			"key": "plutoToken",
+			"value": ""
+		},
+		{
+			"key": "paperinoToken",
+			"value": ""
+		}
+	]
+}

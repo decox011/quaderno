@@ -16,6 +16,14 @@ Il progetto è pensato per una messa in produzione reale e supporta persistenza 
 
 ---
 
+## Funzionalità aggiuntive
+- Metriche di utilizzo e health-checks.
+- Internalizzazione (i18n) con supporto multi-lingua.
+- 
+
+
+---
+
 ## 🏗️ Architettura
 L’architettura prevede:
 - **Kong API Gateway**: entrypoint unico, gestisce routing e sicurezza.
@@ -65,7 +73,7 @@ Questo avvia: PostgreSQL, Redis, ElasticSearch.
 ### 2. Avvia il backend
 ```bash
 cd note-service
-./mvnw spring-boot:run
+./mvnw -Pdev,api-docs
 ```
 
 ### 3. Avvia il frontend
@@ -81,7 +89,7 @@ Il backend risponderà su `http://localhost:8080/api`.
 ---
 
 ## 🧪 Popolamento dati
-È disponibile una **collection Postman** (`postman/Quaderno.postman_collection.json`) che crea:
+È disponibile una **collection Postman** (`documentation/Quaderno.postman_collection.json`) che crea:
 - 3 utenti (`pippo/pippo123`, `pluto/pluto123`, `paperino/paperino123`).
 - 10 note (alcune condivise tra più utenti).
 
@@ -95,19 +103,25 @@ Il backend risponderà su `http://localhost:8080/api`.
 ---
 
 ## 📖 API Documentation
-La documentazione API è disponibile in formato **OpenAPI/Swagger** una volta effettuata la login come admin (all’avvio, l’utente admin è `admin/admin`).
+La documentazione API è disponibile in formato **OpenAPI/Swagger** una volta effettuata la login come admin (all’avvio, l’utente admin è `admin/admin`) disponibili sotto la voce di menù `Administration`.
 
 Una versione è stata scaricata e presente sotto /documentation.
+
 
 ---
 
 ## 📝 Limitazioni attuali
 - Autenticazione gestita dal `note-service` (per semplicità); in futuro integrabile con Keycloak come Identity Provider.
-- Funzionalità avanzate di monitoring (Prometheus, Grafana) non ancora integrate.
 - Il frontend è ancora minimale e può essere arricchito con UX/UI più evoluta.
 - Deployment su Kubernetes non ancora implementato.
 - Accessibilità WCAG non ancora considerata nel frontend.
 - Le note possono essere condivise solo tramite collegamento manuale a database, manca una UI per la gestione delle condivisioni.
+---
+
+## Raccomandazioni utilizzo attuale
+Se si testano le API tramite Postman, bisogna ricordarsi che per creare un nuova nota bisogna prima loggarsi ed utilizzare il JWT ottenuto alla login.
+Al momento inoltre per poter condividere una nota con un altro utente bisogna modificare direttamente il database (ad esempio tramite pgAdmin) inserendo, oltre all'id della nota che si vuole condividere, anche l'id dell'utente nella tabella `note_share`.
+
 ---
 
 ## 🚀 Evoluzioni future
@@ -115,6 +129,11 @@ Una versione è stata scaricata e presente sotto /documentation.
 - Integrazione di sistemi di monitoraggio avanzati (Prometheus/Grafana).
 - Deployment completo su Kubernetes gestito via Helm chart.
 - Supporto accessibilità WCAG nel frontend React.
+- Miglioramento UI/UX del frontend.
+- Implementazione di notifiche email per condivisioni e modifiche note.
+- Implementazione di un sistema di versioning delle note.
+- Implementazione di un sistema di commenti sulle note condivise.
+- Implementazione di un sistema di tagging avanzato con suggerimenti automatici.
 
 ---
 
