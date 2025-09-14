@@ -94,7 +94,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     public Page<NoteDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return noteRepository.findAllWithEagerRelationships(pageable).map(noteMapper::toDto);
+        if (SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
+            return noteRepository.findAllWithEagerRelationships(pageable).map(noteMapper::toDto);
+        } else {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow();
+            return noteRepository.findAllAccessibleByUser(pageable, login).map(noteMapper::toDto);
+        }
     }
 
     @Override
