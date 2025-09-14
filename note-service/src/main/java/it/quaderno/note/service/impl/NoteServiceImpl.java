@@ -1,8 +1,12 @@
 package it.quaderno.note.service.impl;
 
 import it.quaderno.note.domain.Note;
+import it.quaderno.note.domain.User;
 import it.quaderno.note.repository.NoteRepository;
+import it.quaderno.note.repository.UserRepository;
 import it.quaderno.note.repository.search.NoteSearchRepository;
+import it.quaderno.note.security.AuthoritiesConstants;
+import it.quaderno.note.security.SecurityUtils;
 import it.quaderno.note.service.NoteService;
 import it.quaderno.note.service.dto.NoteDTO;
 import it.quaderno.note.service.mapper.NoteMapper;
@@ -23,13 +27,19 @@ public class NoteServiceImpl implements NoteService {
 
     private static final Logger LOG = LoggerFactory.getLogger(NoteServiceImpl.class);
 
+    private final UserRepository userRepository;
+
     private final NoteRepository noteRepository;
 
     private final NoteMapper noteMapper;
 
     private final NoteSearchRepository noteSearchRepository;
 
-    public NoteServiceImpl(NoteRepository noteRepository, NoteMapper noteMapper, NoteSearchRepository noteSearchRepository) {
+    public NoteServiceImpl(UserRepository userRepository,
+                           NoteRepository noteRepository,
+                           NoteMapper noteMapper,
+                           NoteSearchRepository noteSearchRepository) {
+        this.userRepository = userRepository;
         this.noteRepository = noteRepository;
         this.noteMapper = noteMapper;
         this.noteSearchRepository = noteSearchRepository;
@@ -38,7 +48,11 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public NoteDTO save(NoteDTO noteDTO) {
         LOG.debug("Request to save Note : {}", noteDTO);
+        SecurityUtils.getCurrentUserLogin().orElseThrow();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().orElseThrow()).orElseThrow();
         Note note = noteMapper.toEntity(noteDTO);
+        if (user.getAuthorities().stream().anyMatch(a -> a.getName().equals(AuthoritiesConstants.USER)))
+            note.setOwner(user);
         note = noteRepository.save(note);
         noteSearchRepository.index(note);
         return noteMapper.toDto(note);
@@ -80,7 +94,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     public Page<NoteDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return noteRepository.findAllWithEagerRelationships(pageable).map(noteMapper::toDto);
+        if (SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
+            return noteRepository.findAllWithEagerRelationships(pageable).map(noteMapper::toDto);
+        } else {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow();
+            return noteRepository.findAllAccessibleByUser(pageable, login).map(noteMapper::toDto);
+        }
     }
 
     @Override

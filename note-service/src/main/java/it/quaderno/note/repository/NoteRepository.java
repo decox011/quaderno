@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,4 +31,12 @@ public interface NoteRepository extends NoteRepositoryWithBagRelationships, JpaR
     default Page<Note> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    @Query("select distinct n " +
+            "from Note n " +
+            "left join fetch n.tags " +
+            "left join fetch n.noteShares s " +
+            "left join s.sharedWith sw " +
+            "where n.owner.login = :login or sw.login = :login")
+    Page<Note> findAllAccessibleByUser(Pageable pageable, @Param("login") String login);
 }
