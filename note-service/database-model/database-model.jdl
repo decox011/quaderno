@@ -1,0 +1,57 @@
+DEFAULT_MIN_LENGTH = 1
+DEFAULT_MAX_LENGTH = 50
+
+application {
+  config {
+    baseName noteService
+    applicationType monolith
+    authenticationType jwt
+    packageName it.quaderno.note
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    buildTool maven
+    serviceDiscoveryType no
+    enableHibernateCache true
+    clientFramework react
+  }
+  entities *
+}
+
+entity Note {
+  title String required minlength(1) maxlength(140)
+  content TextBlob required
+  links TextBlob // array di URL o markdown
+  createdAt Instant required
+  updatedAt Instant required
+}
+
+entity Tag {
+  name String required minlength(1) maxlength(40) unique
+  createdAt Instant required
+  updatedAt Instant required
+}
+
+entity NoteShare {
+  createdAt Instant required
+  updatedAt Instant required
+}
+
+relationship OneToMany {
+  Note to NoteShare
+}
+
+relationship ManyToOne {
+  NoteShare{sharedWith} to User with builtInEntity
+  Note{owner} to User with builtInEntity
+}
+
+relationship ManyToMany {
+  Note{tags(name)} to Tag{notes(title)}
+}
+
+dto * with mapstruct
+service * with serviceImpl
+
+paginate Note with pagination
+paginate Tag with pagination
+paginate NoteShare with pagination
