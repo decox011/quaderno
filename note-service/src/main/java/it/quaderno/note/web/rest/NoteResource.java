@@ -1,6 +1,7 @@
 package it.quaderno.note.web.rest;
 
 import it.quaderno.note.repository.NoteRepository;
+import it.quaderno.note.security.AuthoritiesConstants;
 import it.quaderno.note.service.NoteService;
 import it.quaderno.note.service.dto.NoteDTO;
 import it.quaderno.note.web.rest.errors.BadRequestAlertException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -56,6 +58,7 @@ public class NoteResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<NoteDTO> createNote(@Valid @RequestBody NoteDTO noteDTO) throws URISyntaxException {
         LOG.debug("REST request to save Note : {}", noteDTO);
         if (noteDTO.getId() != null) {
