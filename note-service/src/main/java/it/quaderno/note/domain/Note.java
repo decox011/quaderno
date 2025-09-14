@@ -34,13 +34,11 @@ public class Note implements Serializable {
     @org.springframework.data.elasticsearch.annotations.Field(type = org.springframework.data.elasticsearch.annotations.FieldType.Text)
     private String title;
 
-    @Lob
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, columnDefinition="TEXT")
     @org.springframework.data.elasticsearch.annotations.Field(type = org.springframework.data.elasticsearch.annotations.FieldType.Text)
     private String content;
 
-    @Lob
-    @Column(name = "links")
+    @Column(name = "links", columnDefinition="TEXT")
     @org.springframework.data.elasticsearch.annotations.Field(type = org.springframework.data.elasticsearch.annotations.FieldType.Text)
     private String links;
 
@@ -59,6 +57,8 @@ public class Note implements Serializable {
     private Set<NoteShare> noteShares = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
     private User owner;
 
     @ManyToMany(fetch = FetchType.LAZY)
