@@ -105,7 +105,9 @@ Una versione è stata scaricata e presente sotto /documentation.
 - Autenticazione gestita dal `note-service` (per semplicità); in futuro integrabile con Keycloak come Identity Provider.
 - Funzionalità avanzate di monitoring (Prometheus, Grafana) non ancora integrate.
 - Il frontend è ancora minimale e può essere arricchito con UX/UI più evoluta.
-
+- Deployment su Kubernetes non ancora implementato.
+- Accessibilità WCAG non ancora considerata nel frontend.
+- Le note possono essere condivise solo tramite collegamento manuale a database, manca una UI per la gestione delle condivisioni.
 ---
 
 ## 🚀 Evoluzioni future
