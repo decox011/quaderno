@@ -83,6 +83,12 @@ public class CacheConfiguration {
             createCache(cm, it.quaderno.note.domain.User.class.getName(), jcacheConfiguration);
             createCache(cm, it.quaderno.note.domain.Authority.class.getName(), jcacheConfiguration);
             createCache(cm, it.quaderno.note.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            createCache(cm, it.quaderno.note.domain.Note.class.getName(), jcacheConfiguration);
+            createCache(cm, it.quaderno.note.domain.Note.class.getName() + ".noteShares", jcacheConfiguration);
+            createCache(cm, it.quaderno.note.domain.Note.class.getName() + ".tags", jcacheConfiguration);
+            createCache(cm, it.quaderno.note.domain.Tag.class.getName(), jcacheConfiguration);
+            createCache(cm, it.quaderno.note.domain.Tag.class.getName() + ".notes", jcacheConfiguration);
+            createCache(cm, it.quaderno.note.domain.NoteShare.class.getName(), jcacheConfiguration);
             // jhipster-needle-redis-add-entry
         };
     }
